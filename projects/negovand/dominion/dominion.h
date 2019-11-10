@@ -97,6 +97,12 @@ int playCard(int handPos, int choice1, int choice2, int choice3,
              struct gameState *state);
 /* Play card with index handPos from current player's hand */
 
+int baronEffect(int choice1, struct gameState *state);
+int minionEffect(int choice1, int choice2, struct gameState *state, int handPos);
+int ambassadorEffect(int choice1, int choice2, struct gameState *state, int handPos);
+int tributeEffect(struct gameState *state);
+int mineEffect(int choice1, int choice2, struct gameState *state, int handPos);
+
 int buyCard(int supplyPos, struct gameState *state);
 /* Buy card with supply index supplyPos */
 
