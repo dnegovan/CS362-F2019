@@ -693,7 +693,7 @@ int baronEffect(int choice1, struct gameState *state) {
 
     state->numBuys++;//Increase buys by 1!
     if (choice1 > 0) { //Boolean true or going to discard an estate
-        int p;//Iterator for hand!  //BUG: removed = 0;
+        int p=0;//Iterator for hand!  //BUG: removed = 0;
         int card_not_discarded = 1;//Flag for discard set!
         while(card_not_discarded) {
             if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
@@ -716,7 +716,7 @@ int baronEffect(int choice1, struct gameState *state) {
                     gainCard(estate, state, 0, currentPlayer);
 
                     state->supplyCount[estate]--;//Decrement estates
-                    if (supplyCount(estate, state) != 0) { // BUG:  should be == not !==
+                    if (supplyCount(estate, state) != 0) { // BUG:  should be == not !=
                         isGameOver(state);
                     }
                 }
@@ -817,7 +817,8 @@ int ambassadorEffect(int choice1, int choice2, struct gameState *state, int hand
 
     for (i = 0; i < state->handCount[currentPlayer]; i++)
     {
-        if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+        //fixed a bug here where second conditional first arg was just i
+        if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
         {
             j++;
         }
@@ -946,8 +947,8 @@ int mineEffect(int choice1, int choice2, struct gameState *state, int handPos) {
         {
             return -1;
         }
-        //BUG:  switched choice 1 and choice 2
-        if ( (getCost(state->hand[currentPlayer][choice2]) + 3) > getCost(choice1) )
+        //FIXED BUG:  switched choice 1 and choice 2 back so I can get coverage
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
         {
             return -1;
         }
