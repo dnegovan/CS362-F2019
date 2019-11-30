@@ -1,8 +1,19 @@
 #include "dominion.h"
 #include <stdio.h>
-#include 'dansFunction.h'
+#include "dansFunctions.h"
+#include <string.h>
 
-
+void assert(int expression, char* testName) {
+    if(expression) {
+        printf("%s", testName);
+        printf(" PASSED\n");
+    }
+    else {
+        printf("%s", testName);
+        printf(" FAILED\n");
+    }
+    return;
+}
 
 
 
@@ -10,8 +21,8 @@ int main ()  {
 
 
     int test;              
-    int preActions;         
-    int preCoins;     
+    //int preActions;         
+    //int preCoins;     
     printf ("in bug4test\n");
 
     // set card array
@@ -29,7 +40,7 @@ int main ()  {
     memset(&G, 0, sizeof(struct gameState));
     int r = initializeGame(2, k, 100, &G);
 
-    printf("\n---------UNIT TEST Final-------:\n");
+    printf("\n---------UNIT TEST isGameOver-------:\n");
     G.handCount[0] = 3;
     G.hand[0][0] = remodel;
     G.hand[0][1] = copper;
@@ -40,11 +51,11 @@ int main ()  {
     
            
  
-    preActions = G.numActions;
-    preCoins = G.coins;
+    //preActions = G.numActions;
+    //preCoins = G.coins;
     //test = mineEffect(1, gold, &G, 0);  //call function
     test = isGameOver(&G);
-    danAssert(test == 1, "test should return true because of 3 piles in supply count empty. Result:");
+    assert(test == 1, "test should return true because of 3 piles in supply count empty. Result:");
 
 
 
