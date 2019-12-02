@@ -36,9 +36,9 @@ int main ()  {
     test = cardEffect(ambassador, 1, 2, -1, &G, 3, -1);  //call function
 
     //current player 0 should be down to 1 cards
-    danAssert(G.handCount[0] == 1, "3C: G.handCount[0] == 1");
+    danAssert(G.handCount[0] == 1, "BUG 10: G.handCount[0] == 1");
     //other players should have 1 more card(mine) than before
-    danAssert(G.handCount[1] == 1, "3C: G.handCount[1] == 1");
+    danAssert(G.handCount[1] == 1, "BUG 10: G.handCount[1] == 1");
 
     printf("\nUNIT TEST BUG 10 -- Test completed!\n\n\n");
     return 0;
