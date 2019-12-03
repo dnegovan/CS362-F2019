@@ -69,7 +69,7 @@ int main ()  {
       }
 
 
-      assert(i > 2 , "Test Failed  ");
+      assert(i < 2 , "Test Failed  ");
       printf("\nUNIT TEST  -- Score for function is complete !\n\n");
     return 0;
 }
