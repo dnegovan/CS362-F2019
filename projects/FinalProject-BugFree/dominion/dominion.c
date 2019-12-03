@@ -467,7 +467,7 @@ int scoreFor (int player, struct gameState *state) {
     }
 
     //score from deck
-    for (i = 0; i < state->discardCount[player]; i++)
+    for (i = 0; i < state->deckCount[player]; i++)
     {
         if (state->deck[player][i] == curse) {
             score = score - 1;
@@ -759,7 +759,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         //Backup hand
 
         //Update Coins for Buy
-        updateCoins(currentPlayer, state, 5);
+        //updateCoins(currentPlayer, state, 5);
         x = 1;//Condition to loop on
         while( x == 1) {//Buy one card
             if (supplyCount(choice1, state) <= 0) {
@@ -1370,4 +1370,3 @@ int updateCoins(int player, struct gameState *state, int bonus)
 
 
 //end of dominion.c
-

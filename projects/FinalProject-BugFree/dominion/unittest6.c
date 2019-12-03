@@ -40,7 +40,7 @@ int main ()  {
 
 
 
-    printf("\n---------UNIT TEST Final - Feast function in card Effect-------:\n");
+    printf("\n---------UNIT TEST Final BUG 6 - Feast function in card Effect-------:\n");
 
 
 
@@ -52,13 +52,13 @@ int main ()  {
 
     G.whoseTurn = 0;
     G.discardCount[0] = 4;
-    G.coins = 6;
+    G.coins = 4;
     G.handCount[0] = 1;
+    G.hand[0][0] = feast;
 
 
-
-    assert(G.handCount[0] > 1, "Test failed Player should have gained card");
-    assert(G.discardCount < 5, "Test failed feast card wasnt discarded");
+    assert(G.handCount > 1, "Test failed Player should have gained card");
+    assert(G.hand[0][0] = feast, "Test failed feast card wasnt discarded");
 
 
     printf("\nUNIT TEST  -- Feast Test completed!\n\n");
