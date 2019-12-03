@@ -401,7 +401,7 @@ int isGameOver(struct gameState *state) {
 
     //if three supply pile are at 0, the game ends
     j = 0;
-    for (i = 0; i < 25; i++)
+    for (i = 0; i < treasure_map+1; i++) // bug fixed: changed '25' -> 'treasure_map+1'
     {
         if (state->supplyCount[i] == 0)
         {
@@ -818,7 +818,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             return -1;
         }
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 3) < getCost(choice2) ) //bug fixed: changed ">" to "<"
         {
             return -1;
         }
@@ -843,7 +843,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     case remodel:
         j = state->hand[currentPlayer][choice1];  //store card we will trash
 
-        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) > getCost(choice2) )
+        if ( (getCost(state->hand[currentPlayer][choice1]) + 2) < getCost(choice2) ) //bug fixed: ">" to "<"
         {
             return -1;
         }
