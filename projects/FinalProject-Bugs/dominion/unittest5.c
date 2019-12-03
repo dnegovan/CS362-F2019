@@ -19,6 +19,7 @@ void assert(int expression, char* testName) {
 int main ()  {
     int test;
     int test2;
+    int test3;
     //int preActions;
     //int preCoins;
 
@@ -45,32 +46,30 @@ int main ()  {
 
 
 
-    //preActions = G.numActions;
-    //preCoins = G.coins;
-    //test = mineEffect(1, gold, &G, 0);  //call function
-    test = scoreFor(2, &G);
+
+    r = scoreFor(2, &G);
+
 
     G.handCount[0] = 1;
     G.handCount[1] = 1;
-    G.hand[0][0] = estate;
-    G.hand[1][0] = estate;
+    G.hand[0][0] = duchy;
+    G.hand[1][0] = duchy;
 
-    G.deckCount[0] = 2;
-    G.discardCount[0] = 3;
+    G.discardCount[0] = 0;
+    G.discardCount[1] = 0;
     G.deck[0][0] = duchy;
-    G.deck[1][0] = duchy;
-    G.deck[0][1] = duchy;
-    G.deck[1][1] = duchy;
-    G.deck[0][2] = duchy;
-    G.deck[1][2] = duchy;
-    G.deck[1][3] = duchy;
-    G.discardCount[1] = 2;
-    G.deckCount[1] = 3;
-    G.deckCount[0] = 3;
+    G.deck[1][0] = estate;
+
+    fullDeckCount(0, 0, &G);
+    int i = 0;
+
+      if(fullDeckCount) {
+        i +1;
+
+      }
 
 
-
-    printf("\nUNIT TEST  -- remodel Test completed!\n\n");
-    assert(G.discardCount[0] > G.discardCount[1] , "Test Failed too many Cards discarded ");
+      assert(i > 2 , "Test Failed  ");
+      printf("\nUNIT TEST  -- Score for function is complete !\n\n");
     return 0;
 }

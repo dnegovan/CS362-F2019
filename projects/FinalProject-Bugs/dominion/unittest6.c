@@ -51,15 +51,14 @@ int main ()  {
 
 
     G.whoseTurn = 0;
-
     G.discardCount[0] = 4;
-    G.handCount[0] = 4;
-    G.coins = 4;
+    G.coins = 6;
+    G.handCount[0] = 1;
 
 
 
-    assert(G.handCount > 4, "Test failed Player should have gained card");
-
+    assert(G.handCount[0] > 1, "Test failed Player should have gained card");
+    assert(G.discardCount < 5, "Test failed feast card wasnt discarded");
 
 
     printf("\nUNIT TEST  -- Feast Test completed!\n\n");

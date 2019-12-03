@@ -40,7 +40,7 @@ int main ()  {
 
 
 
-    printf("\n---------UNIT TEST TESTING TRIBUTE CARD FUNCTION -------:\n");
+    printf("\n---------UNIT TEST TESTING TRIBUTE CARD FUNCTION ITTERATIONS -------:\n");
 
 
 
@@ -57,10 +57,10 @@ int main ()  {
 
 
 
-    //assert(G.discardCount[1] > 2 , "Test Failed too many cards discarded! ");
-    assert(G.discardCount[1] > 2 , "Test Failed too many Cards discarded ");
 
-          printf("\nUNIT TEST  -- Tribute Card Test completed!\n\n");
+    assert(G.discardCount[1] > 2 , "Test Failed too many Cards were discarded ");
+
+          printf("\nUNIT TEST  -- Tribute Card Test itterations completed!\n\n");
 
     return 0;
 }
