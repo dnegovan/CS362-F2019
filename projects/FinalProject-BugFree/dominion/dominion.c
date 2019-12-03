@@ -1055,10 +1055,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 shuffle(nextPlayer,state);//Shuffle the deck
             }
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
+            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1;
             state->deckCount[nextPlayer]--;
             tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            state->deck[nextPlayer][state->deckCount[nextPlayer]--] = -1;
+            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1;
             state->deckCount[nextPlayer]--;
         }
 
@@ -1068,7 +1068,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i <= 2; i ++) {
+        for (i = 0; i < 2; i ++) {
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
                 state->coins += 2;
             }
@@ -1077,7 +1077,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
-            else { //Action Card
+            else if(tributeRevealedCards[i] != -1) { //Action Card
                 state->numActions = state->numActions + 2;
             }
         }

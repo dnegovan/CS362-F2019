@@ -36,9 +36,6 @@ int main ()  {
     //currentplayer discard pile should only have the played mine
     danAssert(G.discardCount[0] == 1, "BUG1: G.discardCount[0] == 1");
 
-    //currentplayer hand should be empty
-    danAssert(G.handCount[0] == 0, "BUG1: G.handCount[0] == 0");
-
 
     printf("\nUNIT TEST BUG 1 -- Test completed!\n\n");
     return 0;
