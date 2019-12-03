@@ -43,9 +43,9 @@ int main ()  {
     printf("\n---------UNIT TEST BUG 7 TESTING TRIBUTE CARD FUNCTION ITTERATIONS -------:\n");
 
 
+      int bonus = 0;
 
-
-      test = cardEffect(tribute, 1, 0, -1, &G, 0, -1); //callig tributeCard function
+      test = cardEffect(tribute, 1, 0, -1, &G, 0, &bonus); //callig tributeCard function
 
 
       G.whoseTurn = 0; //setting the player playing the card

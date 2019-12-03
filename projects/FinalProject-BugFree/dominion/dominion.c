@@ -833,7 +833,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 1);
+                discardCard(i, currentPlayer, state, 1); //bug fix: trash flag should be 1
                 break;
             }
         }
@@ -895,7 +895,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             int card_not_discarded = 1;//Flag for discard set!
             while(card_not_discarded) {
                 if (state->hand[currentPlayer][p] == estate) { //Found an estate card!
-                    state->coins += 4;//Add 4 coins to the amount of coins
+                    *bonus += 4;//Add 4 coins to the amount of coins  BUG FIX: update bonus reference int instead of state->coins
                     state->discard[currentPlayer][state->discardCount[currentPlayer]] = state->hand[currentPlayer][p];
                     state->discardCount[currentPlayer]++;
                     for (; p < state->handCount[currentPlayer]; p++) {
@@ -961,7 +961,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
 		if (choice1)
         {
-            state->coins = state->coins + 2;
+            *bonus += 2;  //BUG FIX:  updating bonus ref int instead of state->coins
         }
         else if (choice2)		//discard hand, redraw 4, other players with 5+ cards discard hand and draw 4
         {
@@ -1012,7 +1012,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         else if (choice1 == 2)
         {
             //+2 coins
-            state->coins = state->coins + 2;
+            *bonus += 2;
         }
         else
         {
@@ -1070,7 +1070,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < 2; i ++) { //bug fix, made it "<2" instead of "<=2"
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
-                state->coins += 2;
+                *bonus += 2; //BUG FIX: updating bonus instead of state->coins
             }
 
             else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall) { //Victory Card Found
@@ -1099,7 +1099,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
-            if (i != handPos && i == state->hand[currentPlayer][choice1] && i != choice1)
+            //BUG FIX: "state->hand[currentPlayer][i] ==" instead of "i =="
+            if (i != handPos && state->hand[currentPlayer][i] == state->hand[currentPlayer][choice1] && i != choice1)
             {
                 j++;
             }
@@ -1120,7 +1121,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         {
             if (i != currentPlayer)
             {
-                gainCard(state->hand[currentPlayer][choice1], state, 0, i);
+                gainCard(state->hand[currentPlayer][choice1], state, 2, i); //BUG FIX: toFlag value 2, not 0
             }
         }
 
@@ -1179,7 +1180,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 
     case embargo:
         //+2 Coins
-        state->coins = state->coins + 2;
+        *bonus += 2; //BUG FIX: updating coin bonus instead of state->coins
 
         //see if selected pile is in play
         if ( state->supplyCount[choice1] == -1 )
@@ -1209,7 +1210,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         if (choice1)
         {
             //gain coins equal to trashed card
-            state->coins = state->coins + getCost( handCard(choice1, state) );
+            *bonus += getCost( handCard(choice1, state) );  //BUG FIX: updating bonus instead of state->coins
             //trash card
             discardCard(choice1, currentPlayer, state, 1);
         }
@@ -1272,6 +1273,11 @@ int discardCard(int handPos, int currentPlayer, struct gameState *state, int tra
         //add card to played pile
         state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos];
         state->playedCardCount++;
+
+        //BUG FIX: need to add the card to the discard pile if it's not being trashed
+        state->discardCount[currentPlayer]++;
+        state->discard[currentPlayer][state->discardCount[currentPlayer]-1] = state->hand[currentPlayer][handPos];
+        
     }
 
     //set played card to -1

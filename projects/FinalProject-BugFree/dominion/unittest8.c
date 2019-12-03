@@ -34,6 +34,7 @@ int main ()  {
     test = updateCoins(0, &G, 0);
 
     int preCoins = G.coins;     //save coin amt before function call
+
     test = playCard(0, 1, -1, -1, &G);  //call function
 
     //buying power should be 4 coins more than before call to playCard()
