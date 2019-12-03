@@ -826,14 +826,14 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
         gainCard(choice2, state, 2, currentPlayer);
 
         //discard card from hand
-        discardCard(handPos, currentPlayer, state, 0);
+        discardCard(handPos, currentPlayer, state, 0); 
 
         //discard trashed card
         for (i = 0; i < state->handCount[currentPlayer]; i++)
         {
             if (state->hand[currentPlayer][i] == j)
             {
-                discardCard(i, currentPlayer, state, 0);
+                discardCard(i, currentPlayer, state, 1);
                 break;
             }
         }
@@ -1055,10 +1055,10 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 shuffle(nextPlayer,state);//Shuffle the deck
             }
             tributeRevealedCards[0] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1;
+            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1; //BUG FIX: removed -- after nextPlayer]
             state->deckCount[nextPlayer]--;
             tributeRevealedCards[1] = state->deck[nextPlayer][state->deckCount[nextPlayer]-1];
-            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1;
+            state->deck[nextPlayer][state->deckCount[nextPlayer]] = -1; //BUG FIX: removed -- after nextPlayer]
             state->deckCount[nextPlayer]--;
         }
 
@@ -1068,7 +1068,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
             tributeRevealedCards[1] = -1;
         }
 
-        for (i = 0; i < 2; i ++) {
+        for (i = 0; i < 2; i ++) { //bug fix, made it "<2" instead of "<=2"
             if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold) { //Treasure cards
                 state->coins += 2;
             }
@@ -1077,7 +1077,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
                 drawCard(currentPlayer, state);
                 drawCard(currentPlayer, state);
             }
-            else if(tributeRevealedCards[i] != -1) { //Action Card
+            else if(tributeRevealedCards[i] != -1) { //Action Card, BUG FIX: check for -1
                 state->numActions = state->numActions + 2;
             }
         }
